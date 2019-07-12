@@ -1,0 +1,19 @@
+<div style="margin-top: 2%;"></div>
+    <div *ngFor="let trash of trashBag" class="container" style="text-align:center;">
+      <div class="trash_top_container">
+        <a routerLink="#"><p class="trash_user">
+          <i class="far fa-angry fa-3x"></i> @{{trash.username}}
+        </p>
+        </a>
+      </div>
+      <p class="trash_message"> {{trash.message}} </p>
+      <div class="col-md-12">
+
+        <button mdbBtn type="button" color="cyan" outline="true" mdbWavesEffect><i class="fas fa-reply"
+                                                                                   aria-hidden="true"> Reply</i>
+        </button>
+        <button class="heart_btn" mdbBtn type="button" color="red" outline="true" mdbWavesEffect><i class="far fa-heart"
+                                                                                                    aria-hidden="true">
+          {{trash.likes}}</i></button>
+      </div>
+    </div>

@@ -1,0 +1,24 @@
+<!-- Default form register -->
+<div class = "container">
+  <form class="text-center border border-light p-5" (ngSubmit)="onSubmit()" #userForm="ngForm">
+
+    <p class="h4 mb-4">Log In</p>
+
+    <!-- Username -->
+    <input type="username" [(ngModel)]="userLogin.username"
+           name = "username" id="usernameField" class="form-control mb-4" placeholder="Username">
+
+    <!-- Password -->
+    <input type="password" [(ngModel)]="userLogin.password"
+           name = "password" id="defaultRegisterFormPassword" class="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
+
+
+
+    <!-- Sign up button -->
+    <button mdbBtn color="info" block="true" class="my-4" type="submit">Log In</button>
+
+
+  </form>
+
+</div>
+<!-- Default form register -->

@@ -1,0 +1,44 @@
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+
+  <!-- Navbar brand -->
+  <a class="navbar-brand" href="/">Litter</a>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li [hidden] = "loggedIn == false" class="nav-item active">
+        <a class="nav-link" routerLink="#">Home
+          <span class="sr-only">(current)</span>
+        </a>
+    </ul >
+    <!-- Links -->
+    <ul class="navbar-nav">
+      <li [hidden] = "loggedIn == true" class="nav-item">
+        <a class="nav-link" routerLink="/login">Log In</a>
+      </li>
+      <li [hidden] = "loggedIn == true" class="nav-item">
+        <a class="nav-link" routerLink="/signup">Register</a>
+      </li>
+      <div [hidden] = "loggedIn == false" class="btn-group" mdbDropdown>
+        <button mdbDropdownToggle type="button" mdbBtn color="primary" class="dropdown-toggle waves-light"
+                mdbWavesEffect><i class="far fa-user pr-2" aria-hidden="true"></i>
+          My Account
+        </button>
+
+        <div class="dropdown-menu dropdown-primary">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item" (click)="logout()">Log Out</a>
+        </div>
+      </div>
+    </ul>
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->
