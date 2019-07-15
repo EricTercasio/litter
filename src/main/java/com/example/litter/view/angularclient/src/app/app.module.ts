@@ -12,6 +12,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {httpInterceptorProviders} from "./services/authentication/auth-interceptor";
 import { TrashComponent } from './trash/trash.component';
+import { NewTrashComponent } from './new-trash/new-trash.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { TrashComponent } from './trash/trash.component';
     RegisterFormComponent,
     HomeComponent,
     NavBarComponent,
-    TrashComponent
+    TrashComponent,
+    NewTrashComponent
   ],
   imports: [
     BrowserModule,

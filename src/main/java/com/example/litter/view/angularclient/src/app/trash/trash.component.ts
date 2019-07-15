@@ -18,6 +18,11 @@ export class TrashComponent implements OnInit {
       "Heres some more text to go along with it.";
     this.trashBag.push(this.trash);
     this.trashBag.push(this.trash2);
+    this.trashBag.push(new Trash());
+
+    this.trashBag.push(new Trash());
+
+    this.trashBag.push(new Trash());
   }
 
   ngOnInit() {
