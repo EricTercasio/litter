@@ -9,14 +9,17 @@ import {TokenStorageService} from "../services/authentication/token-storage.serv
 export class NavBarComponent implements OnInit {
 
   loggedIn : boolean = false;
+  username : string = "";
 
   constructor(private tokenStorageService : TokenStorageService) { }
 
   ngOnInit() {
     if(this.tokenStorageService.getToken()){
       this.loggedIn = true;
+      this.username = this.tokenStorageService.getUsername();
     }else{
       this.loggedIn = false;
+      this.username = "";
     }
 
   }

@@ -1,4 +1,4 @@
-<div class = "container" style="margin-top: .5%; border:1px solid cyan; max-width : 650px">
+<div class = "container" style="margin-top : .5%;border:1px solid #424242; max-width : 650px; background-color : #303030">
 <div class = "container" style = "border: 0px; ">
 <app-new-trash></app-new-trash>
 </div>
@@ -12,12 +12,12 @@
       <p class="trash_message"> {{trash.message}} </p>
       <div class="col-md-12">
 
-        <button mdbBtn type="button" color="cyan" outline="true" mdbWavesEffect><i class="fas fa-reply"
+        <button mdbBtn type="button" style="color :#A9A9A9" outline="true" size="lg" mdbWavesEffect><i class="fas fa-reply"
                                                                                    aria-hidden="true"> Reply</i>
         </button>
-        <button class="heart_btn" mdbBtn type="button" color="red" outline="true" mdbWavesEffect><i class="far fa-heart"
-                                                                                                    aria-hidden="true">
-          {{trash.likes}}</i></button>
+        <button mdbBtn type="button" style="color :#A9A9A9;" outline="true" size = "lg" mdbWavesEffect>
+          <mdb-icon far icon="heart mr-2"></mdb-icon>{{trash.likes}}
+        </button>
       </div>
     </div>
   <div style = "margin-top: 5%"></div>

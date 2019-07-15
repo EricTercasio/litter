@@ -2,8 +2,10 @@ textarea {
   height: 1em;
   padding: 3px;
   transition: all 1s ease;
+  color : white;
 }
 
 textarea:focus {
   height: 4em;
+  color : white;
 }

@@ -1,7 +1,7 @@
 div.container {
   max-width: 550px;
   display : block;
-  border:1px solid cyan;
+  border:2px solid #4c4c4c;
   margin-bottom: 4%;
 }
 
@@ -12,7 +12,7 @@ i.far fa-angry fa-3x {
 p.trash_user {
   margin-top: 3%;
   font-size : large;
-  color : aqua;
+  color : #0892d0;
 }
 
 p.trash_message {
@@ -22,7 +22,9 @@ p.trash_message {
 }
 
 div.trash_top_container {
+  margin-top : 2%;
   text-align : left;
+  display: table;
 }
 
 div.col-md-12 {

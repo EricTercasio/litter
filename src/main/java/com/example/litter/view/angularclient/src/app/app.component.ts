@@ -13,6 +13,7 @@ export class AppComponent {
   private authority: string;
 
   constructor(private tokenStorageService : TokenStorageService) {
+
     this.title = 'Litter';
     if(this.tokenStorageService.getToken()){
       this.roles = this.tokenStorageService.getAuthorities();

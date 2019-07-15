@@ -1,5 +1,5 @@
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+<nav class="navbar navbar-expand-lg navbar-dark" style = "background-color : #303030">
 
   <!-- Navbar brand -->
   <a class="navbar-brand" href="/">Litter</a>
@@ -23,22 +23,19 @@
         <a class="nav-link" routerLink="/signup">Register</a>
       </li>
       <div [hidden] = "loggedIn == false" class="btn-group" mdbDropdown>
-        <button mdbDropdownToggle type="button" mdbBtn color="primary" class="dropdown-toggle waves-light"
+        <button mdbDropdownToggle type="button" mdbBtn style="color : #0892d0" class="dropdown-toggle waves-light"
                 mdbWavesEffect><i class="far fa-user pr-2" aria-hidden="true"></i>
-          My Account
+          {{username}}
         </button>
 
-        <div class="dropdown-menu dropdown-primary">
-          <a class="dropdown-item" href="#">Action</a>
+        <div class="dropdown-menu dropdown-primary" style = "background-color : #212121">
+          <a class="dropdown-item" href="#">My Account</a>
           <a class="dropdown-item" href="#">Another action</a>
           <a class="dropdown-item" href="#">Something else here</a>
           <div class="divider dropdown-divider"></div>
-          <a class="dropdown-item" (click)="logout()">Log Out</a>
+          <a class="dropdown-item" (click)="logout()" style = "color : #0892d0">Log Out</a>
         </div>
       </div>
     </ul>
   </div>
-  <!-- Collapsible content -->
-
 </nav>
-<!--/.Navbar-->
