@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {Trash} from "../model/trash";
+import {Token} from "@angular/compiler";
+import {TokenStorageService} from "../services/authentication/token-storage.service";
+import {UserService} from "../services/user/user.service";
+import {TrashComponent} from "../trash/trash.component";
 
 @Component({
   selector: 'app-new-trash',
@@ -7,9 +12,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewTrashComponent implements OnInit {
 
-  constructor() { }
+  trash : Trash;
+  defaultValue: "";
+  constructor(private tokenStorageService : TokenStorageService, private userService : UserService
+  , private trashComponent : TrashComponent) { }
 
   ngOnInit() {
   }
 
+  newTrash(trashMessage : string) {
+    this.trash = new Trash();
+    this.trash.message = trashMessage;
+    this.trash.username = this.tokenStorageService.getUsername().toLowerCase();
+    this.userService.addNewTrash(this.trash).subscribe(data =>{
+      this.trashComponent.ngOnInit();
+      this.defaultValue = "";
+    },error1 => console.log(error1));
+  }
 }

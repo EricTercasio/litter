@@ -1,9 +1,11 @@
 
-<div class="md-form md-outline">
-      <textarea type="text" id="form7" class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
-      <label for="form7" style = "color : white; background-color : transparent">New Trash...</label>
+<div class="md-form">
+      <textarea #trashMessage [ngModel]="defaultValue" type="text" id="new_trash" class="md-textarea md-textarea-auto form-control" mdbInput
+                 ></textarea>
+      <label for="new_trash" style = "color : white; background-color : transparent">New Trash...</label>
   <div class="col-auto" style = "text-align:right">
-    <button mdbBtn type="button" style="color :#0892d0" outline="true" mdbWavesEffect>Submit</button>
+    <button mdbBtn type="button" style="color :#0892d0" outline="true" mdbWavesEffect (click)="newTrash(trashMessage.value)">
+      Submit</button>
   </div>
 </div>
 

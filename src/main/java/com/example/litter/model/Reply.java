@@ -1,22 +1,20 @@
 package com.example.litter.model;
 
-import org.hibernate.annotations.NaturalId;
-
-import javax.persistence.*;
-import javax.validation.constraints.Email;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
 
-//This would be the "parent" tweet, where its not a reply to anything.
 @Entity
-@Table(name = "trash")
-public class Trash {
+public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    private Long parentId;
 
     @NotBlank
     private String username;
@@ -26,17 +24,14 @@ public class Trash {
 
     private int likes;
 
-    public Trash(String username, String message, int likes) {
+    public Reply(@NotNull Long parentId, @NotBlank String username, @NotBlank String message, int likes) {
+        this.parentId = parentId;
         this.username = username;
         this.message = message;
         this.likes = likes;
     }
 
-    public Trash() {
-    }
-
-    public void like(){
-        this.likes++;
+    public Reply() {
     }
 
     public Long getId() {
@@ -45,6 +40,22 @@ public class Trash {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getMessage() {
@@ -61,13 +72,5 @@ public class Trash {
 
     public void setLikes(int likes) {
         this.likes = likes;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }

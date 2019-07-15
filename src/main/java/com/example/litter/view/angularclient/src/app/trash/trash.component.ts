@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Trash} from "../model/trash";
+import {UserService} from "../services/user/user.service";
+import {TokenStorageService} from "../services/authentication/token-storage.service";
 
 @Component({
   selector: 'app-trash',
@@ -7,25 +9,16 @@ import {Trash} from "../model/trash";
   styleUrls: ['./trash.component.scss']
 })
 export class TrashComponent implements OnInit {
-  trash : Trash;
   trashBag : Trash[] = [];
-  trash2 : Trash = new Trash();
-  constructor() {
-    this.trash = new Trash();
-    this.trash.username = "Eric";
-    this.trash.likes = "50";
-    this.trash.message = "This is a test message. What will it look like when its fairly long?" +
-      "Heres some more text to go along with it.";
-    this.trashBag.push(this.trash);
-    this.trashBag.push(this.trash2);
-    this.trashBag.push(new Trash());
-
-    this.trashBag.push(new Trash());
-
-    this.trashBag.push(new Trash());
+  constructor(private userService : UserService, private tokenStorageService : TokenStorageService) {
   }
 
   ngOnInit() {
+    if (this.tokenStorageService.getToken()) {
+      this.userService.getAllTrash().subscribe(data => {
+        this.trashBag = data.reverse();
+      })
+    }
   }
 
 }
