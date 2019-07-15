@@ -27,6 +27,7 @@ export class NewTrashComponent implements OnInit {
     this.userService.addNewTrash(this.trash).subscribe(data =>{
       this.trashComponent.ngOnInit();
       this.defaultValue = "";
+      console.log("Success!");
     },error1 => console.log(error1));
   }
 }
