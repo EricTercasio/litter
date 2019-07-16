@@ -4,5 +4,7 @@ export class Trash{
   username : string;
   message : string;
   likes : string;
+  creationDate : string;
+  liked: boolean;
 
 }

@@ -43,4 +43,5 @@ public class JwtResponse {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
+
 }

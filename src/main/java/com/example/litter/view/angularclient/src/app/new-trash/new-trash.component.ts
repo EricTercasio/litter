@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Trash} from "../model/trash";
-import {Token} from "@angular/compiler";
 import {TokenStorageService} from "../services/authentication/token-storage.service";
 import {UserService} from "../services/user/user.service";
 import {TrashComponent} from "../trash/trash.component";

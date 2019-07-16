@@ -12,11 +12,12 @@
       <p class="trash_message"> {{trash.message}} </p>
       <div class="col-md-12">
 
-        <button mdbBtn type="button" style="color :#A9A9A9" outline="true" size="lg" mdbWavesEffect><i class="fas fa-reply"
+        <button mdbBtn type="button" style="color :#A9A9A9" outline="true" size="lg" mdbWavesEffect>
+          <i class="fas fa-reply"
                                                                                    aria-hidden="true"> Reply</i>
         </button>
-        <button mdbBtn type="button" style="color :#A9A9A9;" outline="true" size = "lg" mdbWavesEffect>
-          <mdb-icon far icon="heart mr-2"></mdb-icon>{{trash.likes}}
+        <button mdbBtn type="button" style="color :#A9A9A9;" outline="true" size = "lg" mdbWavesEffect (click)="likeTrash(trash.id)">
+          <mdb-icon far [ngClass]="{'red-text' : trash.liked}" icon="heart mr-2"></mdb-icon>{{trash.likes}}
         </button>
       </div>
     </div>

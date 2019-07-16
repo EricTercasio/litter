@@ -12,7 +12,7 @@
     <input type="password" [(ngModel)]="userLogin.password"
            name = "password" id="defaultRegisterFormPassword" class="form-control" style="background-color: transparent; color : white" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock">
 
-
+    <div [hidden]="loginFailed == false" class="alert alert-danger" style = "margin-top: 8%">{{errorMessage}}</div>
 
     <!-- Sign up button -->
     <button mdbBtn style = "background-color : #003366; color : white" block="true" class="my-4" type="submit">Log In</button>

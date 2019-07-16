@@ -3,6 +3,7 @@ import {UserLogin} from "../model/user-login";
 import {AuthenticationService} from "../services/authentication/authentication.service";
 import {TokenStorageService} from "../services/authentication/token-storage.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {UserService} from "../services/user/user.service";
 
 @Component({
   selector: 'app-login-form',
@@ -40,10 +41,9 @@ export class LoginFormComponent implements OnInit {
       this.roles = this.tokenStorageService.getAuthorities();
       window.location.reload();
     }, error => {
-      this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
       console.log(error);
       this.loginFailed = true;
-      this.errorMessage = error.error.message;
+      this.errorMessage = "Invalid Credentials";
     })
   }
 

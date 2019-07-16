@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Trash} from "../../model/trash";
+import {TrashResponse} from "../../model/trash-response";
+import {LikedTrash} from "../../model/liked-trash";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -13,8 +15,11 @@ const httpOptions = {
 export class UserService {
 
   private userTestUrl = "http://localhost:8080/api/test/user";
-  private addTrashUrl = "http://localhost:8080/api/new/trash";
-  private allTrashUrl = "http://localhost:8080/api/all/trash";
+  private addTrashUrl = "http://localhost:8080/api/trash";
+  private allTrashUrl = "http://localhost:8080/api/trash";
+  private likeTrashUrl = "http://localhost:8080/api/trash/like/";
+  private userIdByUsernameUrl = 'http://localhost:8080/api/user/';
+  private likedTrashByUserId = 'http://localhost:8080/api/trash/liked/';
 
   constructor(private http : HttpClient) { }
 
@@ -28,5 +33,17 @@ export class UserService {
 
   getAllTrash() : Observable<Trash[]>{
     return this.http.get<Trash[]>(this.allTrashUrl, {responseType : "json"});
+  }
+
+  likeTrash(trashId : string, userId : string) : Observable<TrashResponse>{
+    return this.http.put<TrashResponse>(this.likeTrashUrl + trashId + "/" + userId, {responseType : "json"});
+  }
+
+  getLikedTrashByUserId(userId : string) : Observable<LikedTrash[]>{
+    return this.http.get<LikedTrash[]>(this.likedTrashByUserId + userId, {responseType : "json"});
+  }
+
+  getUserIdByUsername(username : string): Observable<string>{
+    return this.http.get<string>(this.userIdByUsernameUrl + username);
   }
 }
