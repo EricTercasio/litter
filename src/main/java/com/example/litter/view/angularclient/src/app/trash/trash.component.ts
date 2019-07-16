@@ -29,7 +29,8 @@ export class TrashComponent implements OnInit {
     }
   }
 
-  likeTrash(trashId : string) {
+  likeTrash(event, trashId : string) {
+    event.stopPropagation();
     this.userService.likeTrash(trashId,this.tokenStorageService.getUserId()).subscribe(trashResponse =>{
       for(let trash of this.trashBag){
         if(trash.id == trashResponse.trash.id){
@@ -57,4 +58,12 @@ export class TrashComponent implements OnInit {
     })
   }
 
+  goToTrashPage(id: string) {
+    
+  }
+
+  goToUserPage(event: MouseEvent) {
+    event.stopPropagation();
+    //TODO
+  }
 }

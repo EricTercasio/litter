@@ -12,7 +12,8 @@ import {TrashComponent} from "../trash/trash.component";
 export class NewTrashComponent implements OnInit {
 
   trash : Trash;
-  defaultValue: "";
+  defaultValue : string = "";
+  charLimitMessage : string = "Character limit of 255.";
   constructor(private tokenStorageService : TokenStorageService, private userService : UserService
   , private trashComponent : TrashComponent) { }
 
@@ -27,6 +28,8 @@ export class NewTrashComponent implements OnInit {
       this.trashComponent.ngOnInit();
       this.defaultValue = "";
       console.log("Success!");
-    },error1 => console.log(error1));
+    },error1 => {
+      console.log(error1);
+    });
   }
 }

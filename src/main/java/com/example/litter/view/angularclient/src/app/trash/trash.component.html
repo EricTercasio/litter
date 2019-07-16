@@ -2,9 +2,9 @@
 <div class = "container" style = "border: 0px; ">
 <app-new-trash></app-new-trash>
 </div>
-    <div *ngFor="let trash of trashBag" class="container" style="text-align:center;">
+    <div *ngFor="let trash of trashBag" class="container" style="text-align:center; cursor: pointer;" (click)="goToTrashPage(trash.id)">
       <div class="trash_top_container">
-        <a routerLink="#"><p class="trash_user">
+        <a (click)="goToUserPage($event)"><p class="trash_user">
           <i class="far fa-angry fa-3x"></i> @{{trash.username}}
         </p>
         </a>
@@ -16,7 +16,7 @@
           <i class="fas fa-reply"
                                                                                    aria-hidden="true"> Reply</i>
         </button>
-        <button mdbBtn type="button" style="color :#A9A9A9;" outline="true" size = "lg" mdbWavesEffect (click)="likeTrash(trash.id)">
+        <button mdbBtn type="button" style="color :#A9A9A9;" outline="true" size = "lg" mdbWavesEffect (click)="likeTrash($event,trash.id)">
           <mdb-icon far [ngClass]="{'red-text' : trash.liked}" icon="heart mr-2"></mdb-icon>{{trash.likes}}
         </button>
       </div>

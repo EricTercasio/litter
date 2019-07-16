@@ -4,7 +4,8 @@
                  ></textarea>
       <label for="new_trash" style = "color : white; background-color : transparent">New Trash...</label>
   <div class="col-auto" style = "text-align:right">
-    <button mdbBtn type="button" style="color :#0892d0" outline="true" mdbWavesEffect (click)="newTrash(trashMessage.value)">
+    <div [hidden]="defaultValue.length < 256" class="alert alert-primary" style="text-align : center;" role="alert">{{charLimitMessage}}</div>
+    <button [disabled]="defaultValue.length > 255" mdbBtn type="button" style="color :#0892d0" outline="true" mdbWavesEffect (click)="newTrash(trashMessage.value)">
       Submit</button>
   </div>
 </div>
