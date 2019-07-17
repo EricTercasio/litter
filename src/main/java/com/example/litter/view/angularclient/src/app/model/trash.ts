@@ -4,7 +4,7 @@ export class Trash{
   username : string;
   message : string;
   likes : string;
-  creationDate : string;
+  creation_date : any;
   liked: boolean;
 
 }

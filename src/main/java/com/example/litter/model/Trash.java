@@ -1,5 +1,6 @@
 package com.example.litter.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -30,7 +31,6 @@ public class Trash {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date", nullable = false, updatable = false)
-    @CreatedDate
     private Date creation_date;
 
 
