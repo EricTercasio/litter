@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Trash} from "../../model/trash";
 import {TrashResponse} from "../../model/trash-response";
 import {LikedTrash} from "../../model/liked-trash";
+import {Reply} from "../../model/reply";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -20,6 +21,8 @@ export class UserService {
   private likeTrashUrl = "http://localhost:8080/api/trash/like/";
   private userIdByUsernameUrl = 'http://localhost:8080/api/user/';
   private likedTrashByUserId = 'http://localhost:8080/api/trash/liked/';
+  private trashByIdUrl = 'http://localhost:8080/api/trash/';
+  private addReplyUrl = 'http://localhost:8080/api/reply';
 
   constructor(private http : HttpClient) { }
 
@@ -45,5 +48,17 @@ export class UserService {
 
   getUserIdByUsername(username : string): Observable<string>{
     return this.http.get<string>(this.userIdByUsernameUrl + username);
+  }
+
+  getTrashById(trashId: any) {
+    return this.http.get<Trash>(this.trashByIdUrl + trashId, {responseType : "json"});
+  }
+
+  getRepliedTrashByParentId(trashId : any) {
+    return this.http.get<Reply>(this.trashByIdUrl + trashId + "/replies",{responseType : "json"});
+  }
+
+  addNewReply(reply: Reply) {
+    return this.http.post<Reply>(this.addReplyUrl, reply);
   }
 }

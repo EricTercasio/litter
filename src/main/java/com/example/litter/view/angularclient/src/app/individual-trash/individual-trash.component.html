@@ -1,0 +1,45 @@
+<div class = "container" style="margin-top : .5%;border:1px solid #424242; max-width : 45%; background-color : #303030">
+  <div class = "container" style = "border: 0px; margin-bottom: 4%">
+<div class="container" style="text-align:center; margin-top: 4%">
+  <div class="trash_top_container">
+    <a ><p class="trash_user">
+      <i class="far fa-angry fa-3x"></i> @{{parentTrash.username}}
+    </p>
+    </a>
+  </div>
+  <p class="trash_message"> {{parentTrash.message}} </p>
+  <p class ="trash_message" style="color : #0892d0"> • {{parentTrash.creation_date}}</p>
+  <div class="col-md-12">
+
+    <button mdbBtn type="button" style="color :#A9A9A9" outline="true" size="lg" mdbWavesEffect (click)="openModal(parentTrash.id)">
+      <i class="fas fa-reply"
+         aria-hidden="true"> Reply</i>
+    </button>
+    <button mdbBtn type="button" style="color :#A9A9A9;" outline="true" size = "lg" mdbWavesEffect (click)="likeTrash($event,parentTrash.id)">
+      <mdb-icon far [ngClass]="{'red-text' : parentTrash.liked}" icon="heart mr-2"></mdb-icon>{{parentTrash.likes}}
+    </button>
+  </div>
+</div>
+    <div *ngFor="let reply of replyTrashBag" class="container" style="text-align:center; cursor: pointer; max-width : 93%;
+margin-top: -.4%" (click)="basicModal.show()">
+      <div class="trash_top_container">
+        <a (click)="goToUserPage($event)"><p class="trash_user">
+          <i class="far fa-angry fa-3x"></i> @{{reply.username}}
+        </p>
+        </a>
+      </div>
+      <p class="trash_message"> {{reply.message}} </p>
+      <p class ="trash_message" style="color : #0892d0"> • {{reply.creation_date}}</p>
+      <div class="col-md-12">
+
+        <button mdbBtn type="button" style="color :#A9A9A9" outline="true" size="lg" mdbWavesEffect>
+          <i class="fas fa-reply"
+             aria-hidden="true"> Reply</i>
+        </button>
+        <button mdbBtn type="button" style="color :#A9A9A9;" outline="true" size = "lg" mdbWavesEffect (click)="likeTrash($event,reply.id)">
+          <mdb-icon far [ngClass]="{'red-text' : reply.liked}" icon="heart mr-2"></mdb-icon>{{reply.likes}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

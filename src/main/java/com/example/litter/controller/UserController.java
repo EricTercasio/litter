@@ -1,13 +1,7 @@
 package com.example.litter.controller;
 
-import com.example.litter.dao.RoleRepository;
-import com.example.litter.dao.TrashLikeRepository;
-import com.example.litter.dao.TrashRepository;
-import com.example.litter.dao.UserRepository;
-import com.example.litter.model.Trash;
-import com.example.litter.model.TrashLike;
-import com.example.litter.model.TrashResponse;
-import com.example.litter.model.User;
+import com.example.litter.dao.*;
+import com.example.litter.model.*;
 import com.example.litter.security.jwt.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,6 +30,9 @@ public class UserController {
 
     @Autowired
     TrashLikeRepository trashLikeRepository;
+
+    @Autowired
+    ReplyRepository replyRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -86,6 +83,24 @@ public class UserController {
             return null;
         }
 
+    }
+
+    @PostMapping("api/reply")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public @ResponseBody Reply createReply(@RequestBody Reply reply){
+        Reply newReply = new Reply();
+        newReply.setLikes(new Long(0));
+        newReply.setMessage(reply.getMessage());
+        newReply.setParentId(reply.getParentId());
+        newReply.setUsername(reply.getUsername());
+        newReply.setCreation_date(new Date());
+        return replyRepository.save(newReply);
+    }
+
+    @GetMapping("api/trash/{tid}/replies")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public @ResponseBody Iterable<Reply> getRepliesByTrashId(@PathVariable Long tid){
+        return replyRepository.findAllByParentId(tid);
     }
 
 

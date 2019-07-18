@@ -1,11 +1,9 @@
 package com.example.litter.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 public class Reply {
@@ -22,9 +20,13 @@ public class Reply {
     @NotBlank
     private String message;
 
-    private int likes;
+    private Long likes;
 
-    public Reply(@NotNull Long parentId, @NotBlank String username, @NotBlank String message, int likes) {
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_date", nullable = false, updatable = false)
+    private Date creation_date;
+
+    public Reply(@NotNull Long parentId, @NotBlank String username, @NotBlank String message, Long likes) {
         this.parentId = parentId;
         this.username = username;
         this.message = message;
@@ -66,11 +68,31 @@ public class Reply {
         this.message = message;
     }
 
-    public int getLikes() {
+    public Long getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(Long likes) {
         this.likes = likes;
+    }
+
+    public Date getCreation_date() {
+        return creation_date;
+    }
+
+    public void setCreation_date(Date creation_date) {
+        this.creation_date = creation_date;
+    }
+
+    @Override
+    public String toString() {
+        return "Reply{" +
+                "id=" + id +
+                ", parentId=" + parentId +
+                ", username='" + username + '\'' +
+                ", message='" + message + '\'' +
+                ", likes=" + likes +
+                ", creation_date=" + creation_date +
+                '}';
     }
 }

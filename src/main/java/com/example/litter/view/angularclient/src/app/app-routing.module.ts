@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {RegisterFormComponent} from "./register-form/register-form.component";
 import {HomeComponent} from "./home/home.component";
 import {LoginFormComponent} from "./login-form/login-form.component";
+import {IndividualTrashComponent} from "./individual-trash/individual-trash.component";
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginFormComponent
+  },
+  {
+    path: 'trash/:trashId',
+    component: IndividualTrashComponent
   },
   {
     path: '',

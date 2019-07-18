@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {Trash} from "../model/trash";
 import {UserService} from "../services/user/user.service";
 import {TokenStorageService} from "../services/authentication/token-storage.service";
-import {flatMap, tap} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
+import {Router} from "@angular/router";
+import {MDBModalRef, MDBModalService} from "angular-bootstrap-md";
+import {ModalComponent} from "../modal/modal.component";
 
 @Component({
   selector: 'app-trash',
@@ -11,9 +13,10 @@ import {DatePipe} from "@angular/common";
   styleUrls: ['./trash.component.scss']
 })
 export class TrashComponent implements OnInit {
+  modalRef: MDBModalRef;
   trashBag : Trash[] = [];
-  creationDate : string = "01/05/2019 5:00PM";
-  constructor(private userService : UserService, private tokenStorageService : TokenStorageService) {
+  constructor(private userService : UserService, private tokenStorageService : TokenStorageService, private router : Router,
+              private modalService: MDBModalService) {
   }
 
   ngOnInit() {
@@ -53,7 +56,6 @@ export class TrashComponent implements OnInit {
         let newDate = new DatePipe('en-Us').transform(date,'M/d/yy, h:mm a', 'GMT-8');
         trashBagItem.creation_date = newDate;
       }
-      console.log(this.trashBag);
       this.userService.getLikedTrashByUserId(userId).subscribe(trash =>{
         for(let likedTrash of trash){
           for(let currentTrash of this.trashBag){
@@ -66,37 +68,25 @@ export class TrashComponent implements OnInit {
       })
     })
   }
-
-  private militaryToStandardTime(timePortion: any) {
-    let time = timePortion.split(':');
-    let hours = Number(time[0]);
-    let mins = Number(time[1]);
-    let seconds = Number(time[2]);
-
-    let calculatedValue;
-
-    if(hours > 0 && hours <= 12){
-      calculatedValue = "" + hours;
-    }else if(hours > 12){
-      calculatedValue = "" + (hours - 12);
-    }else{
-      calculatedValue = "12";
-    }
-    calculatedValue += (mins < 10) ? ":0" + mins : ":" + mins;
-    calculatedValue += (seconds < 10) ? ":0" + seconds : ":" + seconds;
-    calculatedValue += (hours >= 12) ? " P.M." : " A.M.";
-
-    return calculatedValue;
-
-
-  }
-
   goToTrashPage(id: string) {
-    
+    this.router.navigate(['/trash/' + id]);
   }
 
   goToUserPage(event: MouseEvent) {
     event.stopPropagation();
     //TODO
+  }
+
+  openModal(){
+    this.modalRef = this.modalService.show(ModalComponent, {
+      backdrop: true,
+      keyboard: true,
+      focus: true,
+      show: false,
+      ignoreBackdropClick: false,
+      class: 'modal-side modal-top-right',
+      containerClass: 'right',
+      animated: true
+    });
   }
 }

@@ -1,0 +1,13 @@
+textarea {
+  padding: 3px;
+  transition: all 1s ease;
+  background-color : #212121;
+  color : white;
+  overflow : hidden;
+}
+
+textarea:focus {
+  background-color : #212121;
+  color : white;
+}
+
