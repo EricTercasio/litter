@@ -15,6 +15,7 @@ import {ModalComponent} from "../modal/modal.component";
 export class TrashComponent implements OnInit {
   modalRef: MDBModalRef;
   trashBag : Trash[] = [];
+  isDataLoaded : boolean = false;
   constructor(private userService : UserService, private tokenStorageService : TokenStorageService, private router : Router,
               private modalService: MDBModalService) {
   }
@@ -25,12 +26,12 @@ export class TrashComponent implements OnInit {
         this.userService.getUserIdByUsername(this.tokenStorageService.getUsername()).subscribe(result => {
           this.tokenStorageService.saveUserId(result);
           this.fetchTrashList(result);
+          this.isDataLoaded = true;
         });
       }else{
         this.fetchTrashList(this.tokenStorageService.getUserId());
+        this.isDataLoaded = true;
       }
-      //Get trashed that has been liked by the user
-
     }
   }
 

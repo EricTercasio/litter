@@ -9,6 +9,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 
@@ -32,9 +34,6 @@ public class UserController {
     TrashLikeRepository trashLikeRepository;
 
     @Autowired
-    ReplyRepository replyRepository;
-
-    @Autowired
     PasswordEncoder encoder;
 
     @Autowired
@@ -49,8 +48,30 @@ public class UserController {
         newTrash.setUsername(trash.getUsername()); //Username of the creator
         newTrash.setLikes(new Long(0));
         newTrash.setCreation_date(new Date());
+        newTrash.setParent(null);
+        ArrayList<Trash> trashArrayList = new ArrayList<>();
+        newTrash.setChildren(trashArrayList);
         return trashRepository.save(newTrash);
     }
+
+    @PostMapping("api/trash/reply")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public @ResponseBody Trash createReply(@RequestBody Trash trash){
+        Trash newTrash = new Trash();
+        newTrash.setLikes(new Long(0));
+        newTrash.setMessage(trash.getMessage());
+        newTrash.setParent(trash.getParent());
+        newTrash.setUsername(trash.getUsername());
+        newTrash.setCreation_date(new Date());
+        return trashRepository.save(newTrash);
+    }
+
+    @GetMapping("api/trash/{tid}/replies")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public @ResponseBody Collection<Trash> getChildren(@PathVariable Long tid){
+        return this.trashRepository.findChildrenById(tid);
+    }
+
 
     @GetMapping("api/trash")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
@@ -83,24 +104,6 @@ public class UserController {
             return null;
         }
 
-    }
-
-    @PostMapping("api/reply")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public @ResponseBody Reply createReply(@RequestBody Reply reply){
-        Reply newReply = new Reply();
-        newReply.setLikes(new Long(0));
-        newReply.setMessage(reply.getMessage());
-        newReply.setParentId(reply.getParentId());
-        newReply.setUsername(reply.getUsername());
-        newReply.setCreation_date(new Date());
-        return replyRepository.save(newReply);
-    }
-
-    @GetMapping("api/trash/{tid}/replies")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public @ResponseBody Iterable<Reply> getRepliesByTrashId(@PathVariable Long tid){
-        return replyRepository.findAllByParentId(tid);
     }
 
 

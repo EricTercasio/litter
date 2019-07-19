@@ -1,6 +1,9 @@
 package com.example.litter.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -28,6 +31,13 @@ public class Trash {
     private String message;
 
     private Long likes;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Trash parent;
+
+    @OneToMany(mappedBy="parent", fetch = FetchType.LAZY)
+    private Collection<Trash> children;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date", nullable = false, updatable = false)
@@ -81,5 +91,21 @@ public class Trash {
 
     public void setCreation_date(Date creation_date) {
         this.creation_date = creation_date;
+    }
+
+    public Trash getParent() {
+        return parent;
+    }
+
+    public void setParent(Trash parent) {
+        this.parent = parent;
+    }
+
+    public Collection<Trash> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Collection<Trash> children) {
+        this.children = children;
     }
 }

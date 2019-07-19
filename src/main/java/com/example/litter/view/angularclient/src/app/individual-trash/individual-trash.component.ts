@@ -38,14 +38,18 @@ export class IndividualTrashComponent implements OnInit {
           tap(trashResult => {
             this.parentTrash = trashResult;
             this.fixTime(this.parentTrash);
+            let children = this.parentTrash.children;
+            this.replyTrashBag = children;
           }),
 
-          flatMap(trashResult => this.userService.getRepliedTrashByParentId(trashResult.id)),
+          flatMap(trashResult => this.userService.getChildren(trashResult.id)),
           tap(repliedTrashResult => {
-            this.replyTrashBag = repliedTrashResult;
-            for(let i = 0; i < this.replyTrashBag.length; i++){
-              this.fixTime(this.replyTrashBag[i]);
-            }
+            console.log(repliedTrashResult);
+            console.log(this.parentTrash);
+            //this.replyTrashBag = repliedTrashResult;
+            //for(let i = 0; i < this.replyTrashBag.length; i++){
+            //  this.fixTime(this.replyTrashBag[i]);
+            //}
           }),
           flatMap(() => this.userService.getLikedTrashByUserId(userId)),
         ).subscribe(likedResult => {

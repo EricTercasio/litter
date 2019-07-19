@@ -4,6 +4,8 @@ export class Trash{
   message : string;
   likes : string;
   creation_date : any;
+  parent : any;
+  children : any;
   liked: boolean;
 
 }

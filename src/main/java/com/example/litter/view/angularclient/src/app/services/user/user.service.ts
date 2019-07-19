@@ -22,7 +22,8 @@ export class UserService {
   private userIdByUsernameUrl = 'http://localhost:8080/api/user/';
   private likedTrashByUserId = 'http://localhost:8080/api/trash/liked/';
   private trashByIdUrl = 'http://localhost:8080/api/trash/';
-  private addReplyUrl = 'http://localhost:8080/api/reply';
+  private addReplyUrl = 'http://localhost:8080/api/trash/reply';
+  private getChildrenUrl = 'http://localhost:8080/api/trash/';
 
   constructor(private http : HttpClient) { }
 
@@ -58,7 +59,12 @@ export class UserService {
     return this.http.get<Reply>(this.trashByIdUrl + trashId + "/replies",{responseType : "json"});
   }
 
-  addNewReply(reply: Reply) {
-    return this.http.post<Reply>(this.addReplyUrl, reply);
+  addNewTrashReply(trash: Trash) {
+    return this.http.post<Trash>(this.addReplyUrl, trash, httpOptions);
+  }
+
+  getChildren(id : any){
+    return this.http.get(this.getChildrenUrl + id + "/replies");
   }
 }
+

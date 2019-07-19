@@ -15,6 +15,7 @@ import { TrashComponent } from './trash/trash.component';
 import { NewTrashComponent } from './new-trash/new-trash.component';
 import { IndividualTrashComponent } from './individual-trash/individual-trash.component';
 import { ModalComponent } from './modal/modal.component';
+import { TestComponent } from './home/test/test.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ModalComponent } from './modal/modal.component';
     TrashComponent,
     NewTrashComponent,
     IndividualTrashComponent,
-    ModalComponent
+    ModalComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
