@@ -32,11 +32,11 @@ public class Trash {
 
     private Long likes;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JsonBackReference
     private Trash parent;
 
-    @OneToMany(mappedBy="parent", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="parent",fetch = FetchType.LAZY)
     private Collection<Trash> children;
 
     @Temporal(TemporalType.TIMESTAMP)

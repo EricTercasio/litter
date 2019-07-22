@@ -18,7 +18,7 @@ export class IndividualTrashComponent implements OnInit {
 
   parentTrash : Trash = new Trash();
 
-  replyTrashBag : any;
+  replyTrashBag : Trash[] = [];
 
   modalRef: MDBModalRef;
 
@@ -39,36 +39,24 @@ export class IndividualTrashComponent implements OnInit {
             this.parentTrash = trashResult;
             this.fixTime(this.parentTrash);
             let children = this.parentTrash.children;
+            for(let i = 0; i < children.length; i++){
+              this.fixTime(children[i]);
+            }
             this.replyTrashBag = children;
-          }),
-
-          flatMap(trashResult => this.userService.getChildren(trashResult.id)),
-          tap(repliedTrashResult => {
-            console.log(repliedTrashResult);
-            console.log(this.parentTrash);
-            //this.replyTrashBag = repliedTrashResult;
-            //for(let i = 0; i < this.replyTrashBag.length; i++){
-            //  this.fixTime(this.replyTrashBag[i]);
-            //}
           }),
           flatMap(() => this.userService.getLikedTrashByUserId(userId)),
         ).subscribe(likedResult => {
           likedTrash = likedResult;
-          let currentTrash;
-          for(let i = 0; i < this.replyTrashBag.length + 1; i++){ // +1 to account for parent trash
-
-            if(i == 0){
-              currentTrash = this.parentTrash;
-            }else{
-              currentTrash = this.replyTrashBag[i - 1];
-            }
-            //First fix the time
-            for(let k = 0; k < likedResult.length; k++){
-              if(currentTrash.id == likedResult[k].trash.id){
+          this.replyTrashBag.push(this.parentTrash);
+          for(let likedTrash of likedResult){
+            for(let currentTrash of this.replyTrashBag){
+              if(likedTrash.trash.id == currentTrash.id){
                 currentTrash.liked = true;
+                break;
               }
             }
           }
+          this.replyTrashBag.pop();
       },error1 => {
           console.log(error1);
       });
@@ -80,15 +68,29 @@ export class IndividualTrashComponent implements OnInit {
   fixTime(trash : Trash){
     let date = trash.creation_date;
     date = new Date(date);
-    let newDate = new DatePipe('en-Us').transform(date,'M/d/yy, h:mm a', 'GMT-8');
+    let newDate = new DatePipe('en-Us').transform(date,'M/d/yy, h:mm a', 'GMT-4');
     trash.creation_date = newDate;
   }
 
   likeTrash(event, trashId : string) {
     event.stopPropagation();
     this.userService.likeTrash(trashId,this.tokenStorageService.getUserId()).subscribe(trashResponse =>{
-      this.parentTrash.liked = trashResponse.liked;
-      this.parentTrash.likes = trashResponse.trash.likes;
+      for(let i = 0; i < this.replyTrashBag.length + 1; i++){
+        if(i == 0){
+          if(this.parentTrash.id == trashResponse.trash.id){
+            this.parentTrash.liked = trashResponse.liked;
+            this.parentTrash.likes = trashResponse.trash.likes;
+            break;
+          }
+        }else{
+          let currentTrash = this.replyTrashBag[i - 1];
+          if(currentTrash.id == trashResponse.trash.id){
+            currentTrash.liked = trashResponse.liked;
+            currentTrash.likes = trashResponse.trash.likes;
+            break;
+          }
+        }
+      }
     })
   }
 
@@ -107,6 +109,19 @@ export class IndividualTrashComponent implements OnInit {
         parentId
       }
     });
+
+    this.modalRef.content.action.subscribe(result =>{
+      this.fixTime(result);
+      this.replyTrashBag.unshift(result);
+    });
   }
 
+  goToTrashPage(id: string) {
+    this.router.navigate(['/trash/' + id]);
+  }
+
+  goToUserPage(event: MouseEvent) {
+    event.stopPropagation();
+    //TODO
+  }
 }

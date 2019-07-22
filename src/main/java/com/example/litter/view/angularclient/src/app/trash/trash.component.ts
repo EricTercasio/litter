@@ -49,12 +49,12 @@ export class TrashComponent implements OnInit {
   }
 
   fetchTrashList(userId : string){
-    this.userService.getAllTrash().subscribe(trash =>{
+    this.userService.getAllNonReplies().subscribe(trash =>{
       this.trashBag = trash.reverse();
       for(let trashBagItem of this.trashBag){
         let date = trashBagItem.creation_date;
         date = new Date(date);
-        let newDate = new DatePipe('en-Us').transform(date,'M/d/yy, h:mm a', 'GMT-8');
+        let newDate = new DatePipe('en-Us').transform(date,'M/d/yy, h:mm a', 'GMT-4');
         trashBagItem.creation_date = newDate;
       }
       this.userService.getLikedTrashByUserId(userId).subscribe(trash =>{

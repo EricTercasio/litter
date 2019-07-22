@@ -79,6 +79,12 @@ public class UserController {
         return trashRepository.findAll();
     }
 
+    @GetMapping("api/trash/nonreplies")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public @ResponseBody Iterable<Trash> getNonReplyTrash(){
+        return trashRepository.findByParentIdIsNull();
+    }
+
     //Gets all the trash that's been liked by a user
     @GetMapping("api/trash/liked/{uid}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")

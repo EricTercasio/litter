@@ -24,6 +24,7 @@ export class UserService {
   private trashByIdUrl = 'http://localhost:8080/api/trash/';
   private addReplyUrl = 'http://localhost:8080/api/trash/reply';
   private getChildrenUrl = 'http://localhost:8080/api/trash/';
+  private getAllNonRepliesUrl = 'http://localhost:8080/api/trash/nonreplies';
 
   constructor(private http : HttpClient) { }
 
@@ -65,6 +66,10 @@ export class UserService {
 
   getChildren(id : any){
     return this.http.get(this.getChildrenUrl + id + "/replies");
+  }
+
+  getAllNonReplies(){
+    return this.http.get<Trash[]>(this.getAllNonRepliesUrl, {responseType : "json"});
   }
 }
 

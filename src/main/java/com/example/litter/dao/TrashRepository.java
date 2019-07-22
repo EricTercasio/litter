@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface TrashRepository extends JpaRepository<Trash, Long> {
     Collection<Trash> findChildrenById(Long tid);
+    Collection<Trash> findByParentIdIsNull();
 }

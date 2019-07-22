@@ -21,7 +21,7 @@
   </div>
 </div>
     <div *ngFor="let reply of replyTrashBag" class="container" style="text-align:center; cursor: pointer; max-width : 93%;
-margin-top: -.4%" (click)="basicModal.show()">
+margin-top: -.4%" (click)="goToTrashPage(reply.id)">
       <div class="trash_top_container">
         <a (click)="goToUserPage($event)"><p class="trash_user">
           <i class="far fa-angry fa-3x"></i> @{{reply.username}}

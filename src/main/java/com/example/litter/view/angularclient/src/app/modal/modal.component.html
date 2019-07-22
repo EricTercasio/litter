@@ -6,11 +6,12 @@
     <h4 class="modal-title w-100" id="myModalLabel" style="color: white">Reply</h4>
   </div>
   <div class="modal-body" style="background-color: #212121">
-    <textarea #trashMessage type="text" id="new_trash" class="md-textarea md-textarea-auto form-control" mdbInput
+    <textarea #trashMessage [(ngModel)]="defaultValue" type="text" id="new_trash" class="md-textarea md-textarea-auto form-control" mdbInput
     ></textarea>
   </div>
+  <div [hidden]="defaultValue.length < 256" class="alert alert-primary" style="text-align : center;" role="alert">{{charLimitMessage}}</div>
   <div class="modal-footer" style="background-color: #212121">
     <button type="button" mdbBtn color="red" class="waves-light" aria-label="Close" (click)="modalRef.hide()" mdbWavesEffect>Close</button>
-    <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect (click)="submitReply(trashMessage.value)">Submit</button>
+    <button type="button" [disabled]="defaultValue.length > 255" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect (click)="submitReply(trashMessage.value)">Submit</button>
   </div>
 </div>
