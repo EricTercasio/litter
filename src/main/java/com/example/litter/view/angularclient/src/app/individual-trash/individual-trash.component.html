@@ -12,8 +12,8 @@
   <div class="col-md-12">
 
     <button mdbBtn type="button" style="color :#A9A9A9" outline="true" size="lg" mdbWavesEffect (click)="openModal(parentTrash.id)">
-      <i class="fas fa-reply"
-         aria-hidden="true"> Reply</i>
+      <i *ngIf="parentTrash.children" class="fas fa-reply"
+         aria-hidden="true"> Reply ({{parentTrash.children.length}})</i>
     </button>
     <button mdbBtn type="button" style="color :#A9A9A9;" outline="true" size = "lg" mdbWavesEffect (click)="likeTrash($event,parentTrash.id)">
       <mdb-icon far [ngClass]="{'red-text' : parentTrash.liked}" icon="heart mr-2"></mdb-icon>{{parentTrash.likes}}
@@ -21,7 +21,7 @@
   </div>
 </div>
     <div *ngFor="let reply of replyTrashBag" class="container" style="text-align:center; cursor: pointer; max-width : 93%;
-margin-top: -.4%" (click)="goToTrashPage(reply.id)">
+margin-top: -.35%" (click)="goToTrashPage(reply.id)">
       <div class="trash_top_container">
         <a (click)="goToUserPage($event)"><p class="trash_user">
           <i class="far fa-angry fa-3x"></i> @{{reply.username}}
@@ -34,7 +34,7 @@ margin-top: -.4%" (click)="goToTrashPage(reply.id)">
 
         <button mdbBtn type="button" style="color :#A9A9A9" outline="true" size="lg" mdbWavesEffect>
           <i class="fas fa-reply"
-             aria-hidden="true"> Reply</i>
+             aria-hidden="true"> Reply ({{reply.children.length}})</i>
         </button>
         <button mdbBtn type="button" style="color :#A9A9A9;" outline="true" size = "lg" mdbWavesEffect (click)="likeTrash($event,reply.id)">
           <mdb-icon far [ngClass]="{'red-text' : reply.liked}" icon="heart mr-2"></mdb-icon>{{reply.likes}}

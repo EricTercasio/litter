@@ -4,7 +4,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user/user.service";
 import {flatMap, map, mergeMap, tap} from 'rxjs/operators';
 import {TokenStorageService} from "../services/authentication/token-storage.service";
-import {Reply} from "../model/reply";
 import {DatePipe} from "@angular/common";
 import {MDBModalRef, MDBModalService} from "angular-bootstrap-md";
 import {ModalComponent} from "../modal/modal.component";
@@ -57,6 +56,7 @@ export class IndividualTrashComponent implements OnInit {
             }
           }
           this.replyTrashBag.pop();
+          console.log(this.replyTrashBag);
       },error1 => {
           console.log(error1);
       });
@@ -112,6 +112,7 @@ export class IndividualTrashComponent implements OnInit {
 
     this.modalRef.content.action.subscribe(result =>{
       this.fixTime(result);
+      result.children = [];
       this.replyTrashBag.unshift(result);
     });
   }

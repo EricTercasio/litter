@@ -16,7 +16,7 @@
 
         <button mdbBtn type="button" style="color :#A9A9A9" outline="true" size="lg" mdbWavesEffect>
           <i class="fas fa-reply"
-                                                                                   aria-hidden="true"> Reply</i>
+                                                                                   aria-hidden="true"> Reply ({{trash.children.length}})</i>
         </button>
         <button mdbBtn type="button" style="color :#A9A9A9;" outline="true" size = "lg" mdbWavesEffect (click)="likeTrash($event,trash.id)">
           <mdb-icon far [ngClass]="{'red-text' : trash.liked}" icon="heart mr-2"></mdb-icon>{{trash.likes}}
