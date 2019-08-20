@@ -4,6 +4,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+com.example.litter.model.User/*
 
 ### STS ###
 .apt_generated
@@ -20,6 +21,8 @@ build/
 *.iml
 *.ipr
 out/
+/indexes/*
+
 
 ### NetBeans ###
 /nbproject/private/

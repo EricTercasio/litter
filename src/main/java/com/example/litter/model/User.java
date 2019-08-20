@@ -1,5 +1,7 @@
 package com.example.litter.model;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -8,6 +10,7 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
+@Indexed
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
@@ -31,6 +34,7 @@ public class User {
     @Size(min = 3, max = 50)
     private String lastName;
 
+    @Field
     @NotBlank
     @Size(min=3, max = 50)
     private String username;

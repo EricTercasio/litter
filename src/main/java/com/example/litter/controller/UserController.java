@@ -34,6 +34,9 @@ public class UserController {
     TrashLikeRepository trashLikeRepository;
 
     @Autowired
+    UserSearchRepository userSearchRepository;
+
+    @Autowired
     PasswordEncoder encoder;
 
     @Autowired
@@ -70,6 +73,11 @@ public class UserController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public @ResponseBody Collection<Trash> getChildren(@PathVariable Long tid){
         return this.trashRepository.findChildrenById(tid);
+    }
+
+    @GetMapping("api/search/")
+    public @ResponseBody Collection<User> searchUsers(@RequestParam(value = "search") String query){
+        return this.userSearchRepository.searchUsersByKeywordQuery(query);
     }
 
 
