@@ -75,8 +75,9 @@ public class UserController {
         return this.trashRepository.findChildrenById(tid);
     }
 
-    @GetMapping("api/search/")
-    public @ResponseBody Collection<User> searchUsers(@RequestParam(value = "search") String query){
+    @GetMapping("api/search/{query}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public @ResponseBody Collection<User> searchUsers(@PathVariable String query){
         return this.userSearchRepository.searchUsersByKeywordQuery(query);
     }
 

@@ -5,6 +5,7 @@ import {Trash} from "../../model/trash";
 import {TrashResponse} from "../../model/trash-response";
 import {LikedTrash} from "../../model/liked-trash";
 import {Reply} from "../../model/reply";
+import {User} from "../../model/user";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -25,6 +26,7 @@ export class UserService {
   private addReplyUrl = 'http://localhost:8080/api/trash/reply';
   private getChildrenUrl = 'http://localhost:8080/api/trash/';
   private getAllNonRepliesUrl = 'http://localhost:8080/api/trash/nonreplies';
+  private searchUsersUrl = 'http://localhost:8080/api/search/';
 
   constructor(private http : HttpClient) { }
 
@@ -70,6 +72,11 @@ export class UserService {
 
   getAllNonReplies(){
     return this.http.get<Trash[]>(this.getAllNonRepliesUrl, {responseType : "json"});
+  }
+
+  searchUsers(value: string) {
+    return this.http.get<User[]>(this.searchUsersUrl + value, {responseType : 'json'})
+
   }
 }
 
